@@ -16,8 +16,17 @@ const TodoList = (props) => {
       <ul>
         {props.todos.map((item) => (
           <li key={item.id}>
-            <input type="checkbox" />
-            <p>{item.todo}</p>
+            <input
+              onChange={() => props.handleChangeStatus(item.id)}
+              type="checkbox"
+            />
+            <p
+              style={{
+                textDecoration: `${item.status ? "line-through" : "none"}`,
+              }}
+            >
+              {item.todo}
+            </p>
             <Button onClick={() => props.getEditedObj(item.id)} $primary>
               Edit
             </Button>

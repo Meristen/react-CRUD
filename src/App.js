@@ -8,6 +8,8 @@ const App = () => {
   let [component, setComponent] = useState("todos");
   let [todos, setTodos] = useState([]);
   let [editedObj, setEditedObj] = useState(null);
+  let [changeStatus, setChangesStatus] = useState(null);
+
   console.log(editedObj);
 
   const handleTodo = (newObj) => {
@@ -38,6 +40,16 @@ const App = () => {
     newTodos = newTodos.filter((item) => item.id !== id);
     setTodos(newTodos);
   }
+  const handleChangeStatus = (id) => {
+    const newTodos = todos.map((item) => {
+      if (item.id === id) {
+        return { ...item, status: !item.status };
+      } else {
+        return item;
+      }
+    });
+    setTodos(newTodos);
+  };
 
   return (
     <>
@@ -45,6 +57,7 @@ const App = () => {
       {component === "create" && <AddTodo handleTodo={handleTodo} />}
       {component === "todos" && (
         <TodoList
+          handleChangeStatus={handleChangeStatus}
           deleteTodo={deleteTodo}
           getEditedObj={getEditedObj}
           todos={todos}
